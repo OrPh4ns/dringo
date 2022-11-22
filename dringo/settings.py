@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'patient.apps.PatientConfig',
     'account.apps.AccountConfig',
     'emergency.apps.EmergencyConfig',
+    'hospital.apps.HospitalConfig'
 ]
 
 MIDDLEWARE = [
