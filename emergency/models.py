@@ -9,3 +9,6 @@ class Emergency(models.Model):
     case_id = models.AutoField(primary_key=True)
     hospital = models.ForeignKey(Hospital, related_name='emergencies', on_delete=models.CASCADE)
     created_dt = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.case_id)
