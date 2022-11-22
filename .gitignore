@@ -1,3 +1,6 @@
 .idea/
 dringo/__pycache__/
 __pycache__/manage.cpython-310.pyc
+patient/__pycache__/urls.cpython-310.pyc
+patient/__pycache__/__init__.cpython-310.pyc
+*.pyc
