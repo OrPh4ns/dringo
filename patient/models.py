@@ -16,3 +16,4 @@ class Patient(models.Model):
     heart_raet = models.IntegerField()
     breathing_rate = models.IntegerField()
     body_temp = models.IntegerField()
+    process_done = models.BooleanField(default=False)
