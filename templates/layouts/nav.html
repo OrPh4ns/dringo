@@ -1,10 +1,77 @@
+{% load static %}
 
-'''
-هنا وضع محتوى الشريط التعليمي
-'''
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Produkt Entwicklung</title>
+    {{ static }}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome-all.min.css' %}assets/">
+    <link rel="stylesheet" href="{% static 'fonts/font-awesome.min.css' %}assets/">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome5-overrides.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Bootstrap-4---Table-Fixed-Header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Footer-Dark-icons.css' %}">
+    <link rel="stylesheet" href="https://daneden.github.io/animate.css/animate.min.css">
+    <link rel="stylesheet" href="{% static 'css/Modal-Login-form.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Navbar---Logo-Middle---Phone-Logo-Middle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Pricing-Tables-Item-Featured-pricing-table.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Pricing-Tables-Item-Featured.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Table-With-Search-search-table.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Table-With-Search.css' %}">
+</head>
+
+<body>
+<div>
+    <nav class="navbar navbar-light navbar-expand-md sticky-top" style="margin: 20px 0 0 0;background: #ededed;">
+        <div class="container-fluid">
+            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-2"><span
+                    class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-2">
+                <img src="{% static 'img/Dringo-removebg-preview.png' %}">
+                <ul class="navbar-nav ms-auto" style="margin-left: -47px;">
+                    <li class="nav-item navigationitemsleft"
+                        style="margin-right: 10px;border-radius: 12px;box-shadow: 0px 0px, 0px 0px;border-style: none;">
+                        <a class="nav-link active" href="#"
+                           style="margin-right: 0;padding-left: 0px;padding-right: 0px;border-style: none;">Startseite</a>
+                    </li>
+                    <li class="nav-item navigationitemsleft"
+                        style="margin-right: 10px;border-radius: 12px;box-shadow: 0px 0px, 0px 0px;border-style: none;">
+                        <a class="nav-link active" href="#"
+                           style="padding-right: 0px;padding-left: 0px;border-style: none;">Patienten</a></li>
+                    <li class="nav-item navigationitemsleft"
+                        style="margin-right: 10px;border-radius: 12px;box-shadow: 0px 0px, 0px 0px;border-style: none;">
+                        <a class="nav-link active" href="#"
+                           style="padding-right: 0px;padding-left: 0px;border-style: none;">Neuer Patient</a></li>
+                    <li class="nav-item navigationitemsleft"
+                        style="margin-right: 10px;border-radius: 12px;box-shadow: 0px 0px, 0px 0px;border-style: none;">
+                        <a class="nav-link active" href="#"
+                           style="padding-right: 0px;padding-left: 0px;border-style: none;">Notfälle</a></li>
+                    <li class="nav-item navigationitemsleft"
+                        style="margin-right: 10px;border-radius: 12px;box-shadow: 0px 0px, 0px 0px;border-style: none;">
+                        <a class="nav-link active" href="#"
+                           style="padding-right: 0px;padding-left: 0px;border-style: none;">Neuer Notfall</a></li>
+                    <li class="nav-item navigationitemsleft"
+                        style="margin-right: 10px;border-radius: 12px;box-shadow: 0px 0px, 0px 0px;border-style: none;">
+                        <a class="nav-link active" href="#" style="padding-right: 0px;padding-left: 0px;">Einloggen</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
 
 {% block content %}
 
 {% endblock content %}
 
 {% include 'layouts/footer.html' %}
+
+
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/Pricing-Tables-Item-Featured.js' %}"></script>
+</body>
+
+</html>
