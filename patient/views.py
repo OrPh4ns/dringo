@@ -8,5 +8,10 @@ def patient_call(request):
 def get_patient(request):
     return render(request, 'patient.html')
 
+
 def get_patients(request):
     return render(request, 'patients.html')
+
+
+def new_patient(request):
+    return render(request, 'new_patient.html')
