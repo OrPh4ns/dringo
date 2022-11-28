@@ -7,5 +7,8 @@ def home(request, pyaudio=None):
 
 
 def login(request):
-    a =[]
     return render(request, 'login.html')
+
+
+def new_case(request):
+    return render(request, 'not_used.html')

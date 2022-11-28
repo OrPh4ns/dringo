@@ -21,6 +21,7 @@ from dringo import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login', views.login, name="login"),
+    path('new/', views.new_case, name="new_case"),
     path('', views.home, name="index"),
     path('', include('patient.urls')),
     path('', include('account.urls')),
