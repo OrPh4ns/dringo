@@ -1,0 +1,23 @@
+patients.html{% extends 'layouts/nav.html' %}
+
+{% block content %}
+    <div style="margin-bottom: 126px;margin-top: 128px;">
+        <div id="myModal">
+            <div class="modal-dialog modal-login">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="h4 modal-title">Patient Einfügen #Standard</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="confirmation" method="post">
+                            <div style="margin-top: 13px;">
+                                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1">Besteht ein Notfall?</label></div>
+                            </div>
+                            <div class="form-group"><button class="btn btn-primary btn-block btn-lg" type="submit" value="Login" style="margin-top: 20px;">Weiter</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
