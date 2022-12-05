@@ -1,5 +1,7 @@
 from django.shortcuts import render
 
+from patient.models import Patient
+
 
 def patient_call(request):
     return render(request, 'call.html')
@@ -10,6 +12,7 @@ def get_patient(request):
 
 
 def get_patients(request):
+
     return render(request, 'patients.html')
 
 

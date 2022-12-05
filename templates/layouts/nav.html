@@ -32,7 +32,6 @@
             <div class="collapse navbar-collapse" id="navcol-2">
                 <img src="{% static 'img/Dringo-removebg-preview.png' %}">
                 <ul class="navbar-nav ms-auto" style="margin-left: -47px;">
-
                     <!--
                     <li class="nav-item navigationitemsleft"
                         style="margin-right: 10px;border-radius: 12px;box-shadow: 0px 0px, 0px 0px;border-style: none;">
@@ -42,25 +41,38 @@
                     -->
                     <li class="nav-item navigationitemsleft"
                         style="margin-right: 10px;border-radius: 12px;box-shadow: 0px 0px, 0px 0px;border-style: none;">
-                        <a class="nav-link active" href="/patients"
+                        <a class="nav-link active" href="/patienten"
                            style="padding-right: 0px;padding-left: 0px;border-style: none;">Patienten</a></li>
                     <li class="nav-item navigationitemsleft"
                         style="margin-right: 10px;border-radius: 12px;box-shadow: 0px 0px, 0px 0px;border-style: none;">
-                        <a class="nav-link active" href="neuer_patient"
+                        <a class="nav-link active" href="/neuer_patient"
                            style="padding-right: 0px;padding-left: 0px;border-style: none;">Neuer Patient</a></li>
                     <li class="nav-item navigationitemsleft"
                         style="margin-right: 10px;border-radius: 12px;box-shadow: 0px 0px, 0px 0px;border-style: none;">
-                        <a class="nav-link active" href="notfalls"
+                        <a class="nav-link active" href="/notfalls"
                            style="padding-right: 0px;padding-left: 0px;border-style: none;">Notfälle</a>
                     </li>
                     <li class="nav-item navigationitemsleft"
                         style="margin-right: 10px;border-radius: 12px;box-shadow: 0px 0px, 0px 0px;border-style: none;">
-                        <a class="nav-link active" href="neuer_notfall"
-                           style="padding-right: 0px;padding-left: 0px;border-style: none;">Neuer Notfall</a></li>
-                    <li class="nav-item navigationitemsleft"
-                        style="margin-right: 10px;border-radius: 12px;box-shadow: 0px 0px, 0px 0px;border-style: none;">
-                        <a class="nav-link active" href="/login" style="padding-right: 0px;padding-left: 0px;">Einloggen</a>
+                        <a class="nav-link active" href="/neuer_notfall"
+                           style="padding-right: 0px;padding-left: 0px;border-style: none;">Neuer Notfall</a>
                     </li>
+
+                    {% if user.is_authenticated %}
+
+
+                        <li class="nav-item navigationitemsleft"
+                            style="margin-right: 10px;border-radius: 12px;box-shadow: 0px 0px, 0px 0px;border-style: none;">
+                        <p style="padding-right: 0px;padding-left: 0px;">{{ user.email }}</p>
+                        </li>
+
+                    {% else %}
+                        <li class="nav-item navigationitemsleft"
+                            style="margin-right: 10px;border-radius: 12px;box-shadow: 0px 0px, 0px 0px;border-style: none;">
+                            <a class="nav-link active" href="/einloggen" style="padding-right: 0px;padding-left: 0px;">Einloggen</a>
+                        </li>
+                    {% endif %}
+
                 </ul>
             </div>
         </div>
