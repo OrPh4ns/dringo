@@ -2,63 +2,70 @@
 
 {% block content %}
 
-    <div style="margin-bottom: 126px;">
-        <div id="myModal">
-            <div class="modal-dialog modal-login">
-                <div class="modal-content">
-                    <div class="modal-header" style="width: 341px;">
-                        <h4 class="h4 modal-title" style="width: 372px;">Verfügbarkeit in Krankenhäusern</h4>
+
+    {% if not user.is_authenticated %}
+        <meta http-equiv="refresh" content="0; url='/einloggen'"/>
+    {% else %}
+
+        <div style="margin-bottom: 126px;">
+            <div id="myModal">
+                <div class="modal-dialog modal-login">
+                    <div class="modal-content">
+                        <div class="modal-header" style="width: 341px;">
+                            <h4 class="h4 modal-title" style="width: 372px;">Verfügbarkeit in Krankenhäusern</h4>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                <div class="container py-5">
+                    <div class="row">
+                        <p class="p-3 mb-2 bg-success text-white">Bett erfolgreich reserviert
+                            <br>Patientennummer : 02563658
+                        </p>
+                        <div class="col-lg-10 mx-auto bg-white rounded shadow">
+                            <!-- Fixed header table-->
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col" class="col-3">#</th>
+                                        <th scope="col" class="col-3">Krankenhaus</th>
+                                        <th scope="col" class="col-3">Betten</th>
+                                        <th scope="col" class="col-3">Reservieren</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    <tr class="mb-5">
+                                        <th scope="row" class="col-3">1</th>
+                                        <td class="col-3">Uni Kli Giessen</td>
+                                        <td class="col-3">6</td>
+                                        <td class="col-3">
+                                            <button type="button" class="btn btn-primary">Reservieren</button>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="mb-5">
+                                        <th scope="row" class="col-3">2</th>
+                                        <td class="col-3">Krankenhaus Frankfurt</td>
+                                        <td class="col-3">4</td>
+                                        <td class="col-3">
+                                            <button type="button" class="btn btn-primary">Reservieren</button>
+                                        </td>
+                                    </tr>
 
 
-            <div class="container py-5">
-                <div class="row">
-                    <p class="p-3 mb-2 bg-success text-white">Bett erfolgreich reserviert
-                        <br>Patientennummer : 02563658
-                    </p>
-                    <div class="col-lg-10 mx-auto bg-white rounded shadow">
-                        <!-- Fixed header table-->
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col" class="col-3">#</th>
-                                    <th scope="col" class="col-3">Krankenhaus</th>
-                                    <th scope="col" class="col-3">Betten</th>
-                                    <th scope="col" class="col-3">Reservieren</th>
-                                </tr>
-                                </thead>
-                                <tbody>
+                                    </tbody>
+                                </table>
+                            </div><!-- End -->
 
-                                <tr class="mb-5">
-                                    <th scope="row" class="col-3">1</th>
-                                    <td class="col-3">Uni Kli Giessen</td>
-                                    <td class="col-3">6</td>
-                                    <td class="col-3">
-                                        <button type="button" class="btn btn-primary">Reservieren</button>
-                                    </td>
-                                </tr>
-
-                                <tr class="mb-5">
-                                    <th scope="row" class="col-3">2</th>
-                                    <td class="col-3">Krankenhaus Frankfurt</td>
-                                    <td class="col-3">4</td>
-                                    <td class="col-3">
-                                        <button type="button" class="btn btn-primary">Reservieren</button>
-                                    </td>
-                                </tr>
-
-
-                                </tbody>
-                            </table>
-                        </div><!-- End -->
-
+                        </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
-    </div>
+
+    {% endif %}
+
 {% endblock %}
