@@ -1,5 +1,7 @@
 from django.db import models
 
+from hospital.models import Hospital
+
 
 class Patient(models.Model):
     ins_nr = models.IntegerField()
@@ -9,11 +11,14 @@ class Patient(models.Model):
     pain = models.BooleanField(default=False)
     injury = models.BooleanField(default=False)
     mental = models.IntegerField()
-    issue = models.TextField()
     pain_rate = models.IntegerField()
     systole = models.IntegerField()
     diastole = models.IntegerField()
     heart_raet = models.IntegerField()
     breathing_rate = models.IntegerField()
     body_temp = models.IntegerField()
+    hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
     process_done = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.firstname+ " " + self.lastname
