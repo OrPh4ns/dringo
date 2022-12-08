@@ -3,7 +3,7 @@
 {% block content %}
 
 
-	<div class="container py-5">
+    <div class="container py-5">
         <div class="row">
             <div class="col-lg-7 mx-auto bg-white rounded shadow">
 
@@ -12,70 +12,81 @@
                     <table class="table">
                         <thead>
 
-                              <tr>
-                                <th scope="col" class="col-5">Name</th>
-                                <th scope="col" class="col-5">Beschreibung</th>
-                            </tr>
+                        <tr>
+                            <th scope="col" class="col-5">Name</th>
+                            <th scope="col" class="col-5">Beschreibung</th>
+                        </tr>
 
                         <!-- Body start -->
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row" class="col-5">Vorname</th>
-                                <td class="col-5">Mark</td>
-                            </tr>
+                        <tr>
+                            <th scope="row" class="col-5">Vorname</th>
+                            <td class="col-5">{{ patient.firstname }}</td>
+                        </tr>
 
-                                                        <tr>
-                                <th scope="row" class="col-5">Nachname</th>
-                                <td class="col-5">Mark</td>
-                            </tr>
-                                                        <tr>
-                                <th scope="row" class="col-5">Versicherungsnummer</th>
-                                <td class="col-5">Mark</td>
-                            </tr>
+                        <tr>
+                            <th scope="row" class="col-5">Nachname</th>
+                            <td class="col-5">{{ patient.lastname }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="col-5">Versicherungsnummer</th>
+                            <td class="col-5">{{ patient.ins_nr }}</td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row" class="col-5">Schmerzen</th>
+                            <td class="col-5">{% if patient.pain %}
+                                Ja
+                            {% else %}
+                                Nein
+                            {% endif %}
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <th scope="row" class="col-5">Verletzung</th>
+
+                            <td class="col-5">{% if patient.injury %}Ja{% else %}Nein
+                            {% endif %}</td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row" class="col-5">Systole</th>
+                            <td class="col-5">{{ patient.systole }} Einheit</td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row" class="col-5">Dyastole</th>
+                            <td class="col-5">{{ patient.diastole }} Einheit</td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row" class="col-5">Atemfreq</th>
+                            <td class="col-5">{{ patient.breathing_rate }} Einheit</td>
+                        </tr>
 
 
-                            <tr>
-                                <th scope="row" class="col-5">Verletzung</th>
-                                <td class="col-5">Ja</td>
-                            </tr>
-
-                                                        <tr>
-                                <th scope="row" class="col-5">Systole</th>
-                                <td class="col-5">555</td>
-                            </tr>
-
-                                                        <tr>
-                                <th scope="row" class="col-5">Dyastole</th>
-                                <td class="col-5">444</td>
-                            </tr>
-
-                                                        <tr>
-                                <th scope="row" class="col-5">Atemfreq</th>
-                                <td class="col-5">333</td>
-                            </tr>
+                        <tr>
+                            <th scope="row" class="col-5">Herzfrequfenz</th>
+                            <td class="col-5">{{ patient.heart_raet }} Einheit</td>
+                        </tr>
 
 
-                                                        <tr>
-                                <th scope="row" class="col-5">Herzfrequfenz</th>
-                                <td class="col-5">55</td>
-                            </tr>
+                        <tr>
+                            <th scope="row" class="col-5">Körper Temp</th>
+                            <td class="col-5">{{ patient.body_temp }} Einheit</td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row" class="col-5">Aufnahme</th>
+                            <td class="col-5">
+                                <button class="btn btn-success">Aufnehmen</button>
+                            </td>
+                        </tr>
 
 
-                                                        <tr>
-                                <th scope="row" class="col-5">Körper Temp</th>
-                                <td class="col-5">669</td>
-                            </tr>
-
-                                                        <tr>
-                                <th scope="row" class="col-5">Aufnahme</th>
-                                <td class="col-5"><button class="btn btn-success">Aufnehmen</button></td>
-                            </tr>
-
-                            <tr>
-                                <th scope="row" class="col-5">Löschen</th>
-                                <td class="col-5"><button class="btn btn-danger">Löschen</button></td>
-                            </tr>
                         </tbody>
                     </table>
                 </div><!-- End -->
