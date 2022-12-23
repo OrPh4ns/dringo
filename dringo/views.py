@@ -1,18 +1,22 @@
 from django.http import HttpResponse
-from django.contrib.auth import login as auth_login
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
+
+
 
 def home(request, pyaudio=None):
     return HttpResponse("First Dringo Response")
 
 
 from django.contrib.auth import authenticate, login
-from django.shortcuts import render
+
+
 
 def logout_request(request):
     logout(request)
     return redirect('/einloggen')
+
+
 def login_request(request):
     if request.method == 'POST':
         # Process the request if posted data are available
@@ -33,6 +37,7 @@ def login_request(request):
     else:
         # No post data availabe, let's just show the page to the user.
         return render(request, 'login.html')
+
 
 
 def new_case(request):
