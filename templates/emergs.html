@@ -20,6 +20,7 @@
                                 <thead>
                                 <tr>
                                     <th scope="col" class="col-3">Patient ID</th>
+                                    <th scope="col" class="col-3">Datum</th>
                                     <th scope="col" class="col-3">Entlassen</th>
                                 </tr>
                                 </thead>
@@ -28,6 +29,20 @@
                                 {% for emerg in emeges %}
                                     <tr class="mb-5">
                                         <th scope="row" class="col-3">{{ emerg }}</th>
+
+                                        <td class="col-3">
+                                           {{ emerg.created_dt }}
+                                        </td>
+
+                                        <td class="col-3">
+                                        {% for hospital in hospitals %}
+                                            {% if emerg.hospital_id == hospital.id %}
+                                                {{ hospital.name }}
+                                            {% endif %}
+                                        {% endfor %}
+
+
+                                        </td>
                                         <td class="col-3">
                                             <a class="btn btn-primary" href="/remove_emerg/{{ emerg.case_id }}">Entlassen</a>
                                         </td>
