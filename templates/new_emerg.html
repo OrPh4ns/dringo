@@ -17,9 +17,14 @@
 
                 <div class="container py-5">
                     <div class="row">
-                        <p class="p-3 mb-2 bg-success text-white">Bett erfolgreich reserviert
-                            <br>Patientennummer : 02563658
+
+        {% if error %}
+                        <p class="p-3 mb-2 bg-danger text-white">
+
+                               {{ error }}
+
                         </p>
+        {% endif %}
                         <div class="col-lg-10 mx-auto bg-white rounded shadow">
                             <!-- Fixed header table-->
                             <div class="table-responsive">
@@ -28,30 +33,22 @@
                                     <tr>
                                         <th scope="col" class="col-3">#</th>
                                         <th scope="col" class="col-3">Krankenhaus</th>
-                                        <th scope="col" class="col-3">Betten</th>
+                                        <!--<th scope="col" class="col-3">Betten</th>-->
                                         <th scope="col" class="col-3">Reservieren</th>
                                     </tr>
                                     </thead>
                                     <tbody>
 
+                                {% for hospt in hospts %}
                                     <tr class="mb-5">
-                                        <th scope="row" class="col-3">1</th>
-                                        <td class="col-3">Uni Kli Giessen</td>
-                                        <td class="col-3">6</td>
+                                        <th scope="row" class="col-3">{{ hospt.id }}</th>
+                                        <td class="col-3">{{ hospt.name }}</td>
+                                        <!--<td class="col-3">{{ hospt.beds_count }}</td>-->
                                         <td class="col-3">
-                                            <button type="button" class="btn btn-primary">Reservieren</button>
+                                            <a class="btn btn-primary" href="/reserv_emerg/{{ hospt.id }}">Reservieren</a>
                                         </td>
                                     </tr>
-
-                                    <tr class="mb-5">
-                                        <th scope="row" class="col-3">2</th>
-                                        <td class="col-3">Krankenhaus Frankfurt</td>
-                                        <td class="col-3">4</td>
-                                        <td class="col-3">
-                                            <button type="button" class="btn btn-primary">Reservieren</button>
-                                        </td>
-                                    </tr>
-
+                                {% endfor %}
 
                                     </tbody>
                                 </table>
