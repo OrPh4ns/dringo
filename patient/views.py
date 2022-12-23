@@ -6,7 +6,7 @@ from role.models import Role
 
 
 def patient_call(request):
-    return render(request, 'call.html')
+    return render(request, 'call.html', {"patient":Patient.objects.filter(process_done=True).last()})
 
 
 def get_patient(request, id):
@@ -32,7 +32,7 @@ def get_patients(request):
         if Role.objects.filter(employee=request.user.id).first().is_car:
             patients = Patient.objects.filter(process_done=False)
         else:
-            patients = Patient.objects.filter(hospital=Hospital.objects.filter(
+            patients = Patient.objects.filter(process_done=False,hospital=Hospital.objects.filter(
                 id=Role.objects.filter(employee=request.user.id).first().hospital.id).first())
 
         return render(request, 'patients.html', {"patients": patients})
