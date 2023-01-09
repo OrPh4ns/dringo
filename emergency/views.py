@@ -1,15 +1,11 @@
+from django.db import connection
 from django.db.models import Count
 from django.shortcuts import render, redirect
 
+from emergency import models
 from emergency.models import Emergency
 from hospital.models import Hospital
 from role.models import Role
-
-# Own Moduls
-
-import operator
-from django.db.models import Q
-from functools import reduce
 
 
 def get_emergs(request):
@@ -35,18 +31,14 @@ def remove_emerg(request, id):
 def new_emergx(request):
     if request.user.is_authenticated:
         if Role.objects.filter(employee=request.user.id).first().is_car:
-            # list_ids = list(Emergency.objects.values_list('hospital_id', flat = True))
-            emgs = Emergency.objects.values_list('hospital_id', flat=True).annotate(total=Count('case_id')).order_by()
-
-            emg_ids = []
-            for emg in emgs:
-                emg_ids.append(emg)
-            hospts = []
-            for i in emg_ids:
-                hospts += Hospital.objects.filter(id=i)
-                #reserved_beds_count = Emergency.objects.filter(hospital_id=i).count()
-                print(Emergency.objects.filter(hospital_id=i).count())
-            return render(request, 'new_emerg.html',{"hospts": hospts})
+            free_bed_hospital = []
+            for p in Hospital.objects.raw('''SELECT *
+FROM hospital_hospital h
+WHERE h.id not in (select e.hospital_id from emergency_emergency e) or h.id in 
+(select e.hospital_id from emergency_emergency e 
+where e.hospital_id = h.id group by e.hospital_id  having count(*)<h.beds_count);'''):
+                free_bed_hospital.append(p)
+            return render(request, 'new_emerg.html', {"hospts": free_bed_hospital})
         else:
             obj = Emergency.objects.filter(hospital=Hospital.objects.filter(
                 id=Role.objects.filter(employee=request.user.id).first().hospital.id).first())
@@ -55,13 +47,13 @@ def new_emergx(request):
     else:
         return redirect('/einloggen')
 
+
 def new_emerg(request):
     if request.user.is_authenticated:
         if Role.objects.filter(employee=request.user.id).first().is_car:
-
-            hospitals = Hospital.objects.all()
-            print(hospitals)
-            return render(request, 'new_emerg.html',{"hospts": hospitals})
+            all_hospitals = Hospital.objects.all()
+            all_emergs = Emergency.objects.all()
+            return render(request, 'new_emerg.html', {"hospts": hospitals})
         else:
             hospitals = Hospital.objects.filter(id=Role.objects.filter(employee=request.user.id).first().hospital.id)
             return render(request, 'new_emerg.html', {"hospts": hospitals})

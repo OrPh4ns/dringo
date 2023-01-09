@@ -11,4 +11,4 @@ class Emergency(models.Model):
     created_dt = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return str(self.case_id)
+        return str("id = "+str(self.case_id)+" | Hospital =  "+str(self.hospital))

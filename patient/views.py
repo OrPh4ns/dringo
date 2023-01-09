@@ -1,9 +1,7 @@
 from django.shortcuts import render, redirect
-
 from hospital.models import Hospital
 from patient.models import Patient
 from role.models import Role
-
 
 def patient_call(request):
     return render(request, 'call.html', {"patient":Patient.objects.filter(process_done=True).last()})
@@ -34,7 +32,7 @@ def get_patients(request):
         else:
             patients = Patient.objects.filter(process_done=False,hospital=Hospital.objects.filter(
                 id=Role.objects.filter(employee=request.user.id).first().hospital.id).first())
-
+            print(patients.id)
         return render(request, 'patients.html', {"patients": patients})
     else:
         return redirect('/einloggen')
