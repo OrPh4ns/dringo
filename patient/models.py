@@ -19,6 +19,7 @@ class Patient(models.Model):
     body_temp = models.IntegerField()
     hospital = models.ForeignKey(Hospital, on_delete=models.CASCADE)
     process_done = models.BooleanField(default=False)
+    archive_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.firstname+ " " + self.lastname

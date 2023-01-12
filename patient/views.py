@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect
+
+import patient
 from hospital.models import Hospital
 from patient.models import Patient
 from role.models import Role
 
+
 def patient_call(request):
-    return render(request, 'call.html', {"patient":Patient.objects.filter(process_done=True).last()})
+    return render(request, 'call.html', {"patient":Patient.objects.filter(process_done=True).order_by('-archive_date').values().first()})
 
 
 def get_patient(request, id):
@@ -19,6 +22,7 @@ def reserv_patient(request, id):
         print(id)
         patient = Patient.objects.filter(id=id).first()
         patient.process_done = 1
+        patient.archive_date = patient.archive_date.now()
         patient.save()
         return redirect('/patienten')
     else:
@@ -32,13 +36,15 @@ def get_patients(request):
         else:
             patients = Patient.objects.filter(process_done=False,hospital=Hospital.objects.filter(
                 id=Role.objects.filter(employee=request.user.id).first().hospital.id).first())
-            print(patients.id)
+        import pandas as pd
+        import joblib
+        print(pd.DataFrame(patients))
+        model = joblib.load('test_model.sav')
         return render(request, 'patients.html', {"patients": patients})
     else:
         return redirect('/einloggen')
 
 def archive_patient(request, id):
-    print(id)
     return render(request, 'patient.html', {'patient_id': id})
 
 def delete(request, person_pk):

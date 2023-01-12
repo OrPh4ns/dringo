@@ -12,7 +12,7 @@
                     <div class="modal-body">
                         <form method="post">
                             {% csrf_token %}
-                            <input class="form-control" type="text" name="ins_nr" placeholder="Patient Versicherungsnummer"
+                            <input class="form-control" type="number" name="ins_nr" placeholder="Patient Versicherungsnummer"
                                                                          required="required"
                                                                          style="margin-top: 20px;">
                             <input class="form-control" name="firstname" type="text" placeholder="Vorname" required="required"
