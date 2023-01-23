@@ -38,8 +38,12 @@ def get_patients(request):
                 id=Role.objects.filter(employee=request.user.id).first().hospital.id).first())
         import pandas as pd
         import joblib
-        print(pd.DataFrame(patients))
+        df=pd.DataFrame(patients)
         model = joblib.load('test_model.sav')
+        patienten=df.iloc[:,1:]
+        triage= model.predict(patienten)
+        df['Stufe'] = triage
+        df=df.sort_values(by=['Stufe'])
         return render(request, 'patients.html', {"patients": patients})
     else:
         return redirect('/einloggen')
