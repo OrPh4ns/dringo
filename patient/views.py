@@ -38,9 +38,13 @@ def get_patients(request):
                 id=Role.objects.filter(employee=request.user.id).first().hospital.id).first())
         import pandas as pd
         import joblib
-        print(pd.DataFrame(patients))
+        df=pd.DataFrame(patients)
+        df2=df.iloc[:,4:]
         model = joblib.load('test_model.sav')
-        return render(request, 'patients.html', {"patients": patients})
+        triage= model.predict(df2)
+        df['Stufe'] = triage
+        df=df.sort_values(by=['Stufe'])
+        return render(request, 'patients.html', {"patients": df})
     else:
         return redirect('/einloggen')
 
@@ -53,42 +57,52 @@ def delete(request, person_pk):
 def new_patient(request):
     if request.method == 'POST':
         ins_nr = request.POST['ins_nr']
-        arrival_mode = request.POST['arrival_mode']
+        #arrival_mode = request.POST['arrival_mode']
         firstname = request.POST['firstname']
         lastname = request.POST['lastname']
 
-        if "pain" in request.POST:
-            pain = request.POST['pain']
-            if pain == 'on':
-                pain = True
+        if "exercise_angina " in request.POST:
+            exercise_angina = request.POST['exercise_angina ']
+            if exercise_angina == 'on':
+                exercise_angina = True
             else:
-                pain = False
+                exercise_angina = False
         else:
-            pain = False
+            exercise_angina = False
 
-        if "injury" in request.POST:
-            injury = request.POST['injury']
-            if injury == 'on':
-                injury = True
+        if "hypertension " in request.POST:
+            hypertension  = request.POST['hypertension ']
+            if hypertension  == 'on':
+                hypertension  = True
             else:
-                injury = False
+                hypertension  = False
         else:
-            injury = False
+            hypertension = False
+        
+        if "heart_disease " in request.POST:
+            heart_disease  = request.POST['heart_disease ']
+            if heart_disease  == 'on':
+                heart_disease  = True
+            else:
+                heart_disease  = False
+        else:
+            heart_disease = False
 
-        mental = request.POST['mental']
-        pain_rate = request.POST['pain_rate']
-        systole = request.POST['systole']
-        diastole = request.POST['diastole']
-        heart_raet = request.POST['heart_raet']
-        breathing_rate = request.POST['breathing_rate']
-        body_temp = request.POST['body_temp']
+        chest_pain_type  = request.POST['chest_pain_type ']
+        blood_pressure  = request.POST['blood_pressure ']
+        cholesterol  = request.POST['cholesterol ']
+        max_heart_rate  = request.POST['max_heart_rate ']
+        plasma_glucose  = request.POST['plasma_glucose ']
+        insulin  = request.POST['insulin ']
+        bmi  = request.POST['bmi']
+        diabetes_pedigree   = request.POST['diabetes_pedigree ']
 
         # .objects.get(id = id)
 
-        patient_data = Patient(ins_nr=ins_nr, arrival_mode=arrival_mode, firstname=firstname, lastname=lastname,
-                               pain=pain, injury=injury, mental=mental, pain_rate=pain_rate, systole=systole,
-                               diastole=diastole, heart_raet=heart_raet
-                               , breathing_rate=breathing_rate, body_temp=body_temp,
+        patient_data = Patient(ins_nr=ins_nr, firstname=firstname, lastname=lastname,
+                               chest_pain_type =chest_pain_type , exercise_angina =exercise_angina , hypertension =hypertension , heart_disease =heart_disease , blood_pressure =blood_pressure ,
+                               cholesterol =cholesterol , max_heart_rate =max_heart_rate 
+                               , plasma_glucose =plasma_glucose , insulin =insulin ,bmi =bmi ,diabetes_pedigree = diabetes_pedigree ,
                                hospital=Hospital.objects.filter(
                                    id=Role.objects.filter(employee=request.user.id).first().hospital.id).first())
         if patient_data.save():
