@@ -28,6 +28,9 @@ def reserv_patient(request, id):
         patient.process_done = 1
         patient.archive_date = patient.archive_date.now()
         patient.save()
+        patient_count = int(Patient.objects.filter(process_done=0).count())
+        if patient_count == 0:
+            return redirect('/neuer_patient')
         return redirect('/patienten')
     else:
         return redirect('/einloggen')
@@ -50,10 +53,6 @@ def get_patients(request):
         df['Stufe'] = triage
         df = df.sort_values(by=['Stufe'], ascending=[False])
         liste = df.values.tolist()
-        # for i in liste:
-        #
-        #     print(i[0])
-
         return render(request, 'patients.html', {"patients": liste})
     else:
         return redirect('/einloggen')
