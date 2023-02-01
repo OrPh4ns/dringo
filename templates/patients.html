@@ -12,25 +12,54 @@
                         <th>Versicherungsnumer</th>
                         <th>Vorname</th>
                         <th>Nachname</th>
+                        <th>Stufe</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
+                    
 
                     {% for patient in patients %}
-                        <tr>
-                            <td><a href="patient/{{ patient.id }}">{{ patient.id }}</a></td>
-                            <td>{{ patient.ins_nr }}</td>
-                            <td>{{ patient.firstname }}</td>
-                            <td>{{ patient.lastname }}</td>
-                            <td>
-                                <a class="btn btn-success" style="margin-left: 5px;" href="/reserv/{{ patient.id }}">
-                                    <i class="fa fa-check" style="font-size: 15px;">D</i>
 
-                                </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
+                    <tr>
+                        <td><a href="patient/{{ patient.id }}">{{ patient.0 }}</a></td>
+                        <td>{{ patient.1 }}</td>
+                        <td>{{ patient.2 }}</td>
+                        <td>{{ patient.3 }}</td>
+                        {% with color=patient.18|floatformat:0 %}
+                        {% if color == '0' %}
+                        <td class="bg-primary">  
+                        </td>
+                        {% endif %}
+                        {% if color == '1' %}
+                        <td class="bg-success">  
+                        </td>
+                        {% endif %}
+                        {% if color == '2' %}
+                        <td class="bg-warning">  
+                        </td>
+                        {% endif %}
+                        {% if color == '3' %}
+                        <td class="bg-danger">  
+                        </td>
+                        {% endif %}
+                        {% if color == '4' %}
+                        <td class="bg-danger">  
+                        </td>
+                        {% endif %}
+                        
+                        
+
+                        
+                        {% endwith %}
+                        <td>
+                            <a class="btn btn-success" style="margin-left: 5px;" href="/reserv/{{ patient.0 }}">
+                                <i class="fa fa-check" style="font-size: 15px;"></i>
+
+                            </a>
+                        </td>
+                    </tr> 
+                     {% endfor %}
 
                     </tbody>
                 </table>

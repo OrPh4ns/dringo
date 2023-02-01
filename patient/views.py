@@ -5,9 +5,13 @@ from hospital.models import Hospital
 from patient.models import Patient
 from role.models import Role
 
+import pandas as pd
+import joblib
+
 
 def patient_call(request):
-    return render(request, 'call.html', {"patient":Patient.objects.filter(process_done=True).order_by('-archive_date').values().first()})
+    return render(request, 'call.html',
+                  {"patient": Patient.objects.filter(process_done=True).order_by('-archive_date').values().first()})
 
 
 def get_patient(request, id):
@@ -32,63 +36,87 @@ def reserv_patient(request, id):
 def get_patients(request):
     if request.user.is_authenticated:
         if Role.objects.filter(employee=request.user.id).first().is_car:
-            patients = Patient.objects.filter(process_done=False)
+            patients = Patient.objects.filter(process_done=False).values()
+            df = pd.DataFrame.from_dict(patients)
+            df.reset_index(drop=True, inplace=True)
         else:
-            patients = Patient.objects.filter(process_done=False,hospital=Hospital.objects.filter(
-                id=Role.objects.filter(employee=request.user.id).first().hospital.id).first())
-        import pandas as pd
-        import joblib
-        print(pd.DataFrame(patients))
-        model = joblib.load('test_model.sav')
-        return render(request, 'patients.html', {"patients": patients})
+            patients = Patient.objects.filter(process_done=False, hospital=Hospital.objects.filter(
+                id=Role.objects.filter(employee=request.user.id).first().hospital.id).first()).values()
+            df = pd.DataFrame.from_dict(patients)
+            df.reset_index(drop=True, inplace=True)
+        df2 = df.iloc[:, 4:15]
+        model = joblib.load('model.sav')
+        triage = model.predict(df2.values)
+        df['Stufe'] = triage
+        df = df.sort_values(by=['Stufe'], ascending=[False])
+        liste = df.values.tolist()
+        # for i in liste:
+        #
+        #     print(i[0])
+
+        return render(request, 'patients.html', {"patients": liste})
     else:
         return redirect('/einloggen')
+
 
 def archive_patient(request, id):
     return render(request, 'patient.html', {'patient_id': id})
 
+
 def delete(request, person_pk):
     print(person_pk)
+
 
 def new_patient(request):
     if request.method == 'POST':
         ins_nr = request.POST['ins_nr']
-        arrival_mode = request.POST['arrival_mode']
+        # arrival_mode = request.POST['arrival_mode']
         firstname = request.POST['firstname']
         lastname = request.POST['lastname']
 
-        if "pain" in request.POST:
-            pain = request.POST['pain']
-            if pain == 'on':
-                pain = True
+        if "exercise_angina" in request.POST:
+            exercise_angina = request.POST['exercise_angina']
+            if exercise_angina == 'on':
+                exercise_angina = 1
             else:
-                pain = False
+                exercise_angina = 0
         else:
-            pain = False
+            exercise_angina = 0
 
-        if "injury" in request.POST:
-            injury = request.POST['injury']
-            if injury == 'on':
-                injury = True
+        if "heart_disease" in request.POST:
+            heart_disease = request.POST['heart_disease']
+            if heart_disease == 'on':
+                heart_disease = 1
             else:
-                injury = False
+                heart_disease = 0
         else:
-            injury = False
+            heart_disease = 0
 
-        mental = request.POST['mental']
-        pain_rate = request.POST['pain_rate']
-        systole = request.POST['systole']
-        diastole = request.POST['diastole']
-        heart_raet = request.POST['heart_raet']
-        breathing_rate = request.POST['breathing_rate']
-        body_temp = request.POST['body_temp']
+        if "hypertension" in request.POST:
+            hypertension = request.POST['hypertension']
+            if hypertension == 'on':
+                hypertension = 1
+            else:
+                hypertension = 0
+        else:
+            hypertension = 0
+
+        chest_pain_type = request.POST['chest_pain_type']
+        blood_pressure = request.POST['blood_pressure']
+        max_heart_rate = request.POST['max_heart_rate']
+        plasma_glucose = request.POST['plasma_glucose']
+        insulin = request.POST['insulin']
+        bmi = request.POST['bmi']
+        diabetes_pedigree = request.POST['diabetes_pedigree']
+        cholesterol = request.POST['cholesterol']
 
         # .objects.get(id = id)
 
-        patient_data = Patient(ins_nr=ins_nr, arrival_mode=arrival_mode, firstname=firstname, lastname=lastname,
-                               pain=pain, injury=injury, mental=mental, pain_rate=pain_rate, systole=systole,
-                               diastole=diastole, heart_raet=heart_raet
-                               , breathing_rate=breathing_rate, body_temp=body_temp,
+        patient_data = Patient(ins_nr=ins_nr, firstname=firstname, lastname=lastname, chest_pain_type=chest_pain_type,
+                               exercise_angina=exercise_angina, heart_disease=heart_disease, hypertension=hypertension,
+                               blood_pressure=blood_pressure, max_heart_rate=max_heart_rate,
+                               plasma_glucose=plasma_glucose, insulin=insulin
+                               , bmi=bmi, diabetes_pedigree=diabetes_pedigree, cholesterol=cholesterol,
                                hospital=Hospital.objects.filter(
                                    id=Role.objects.filter(employee=request.user.id).first().hospital.id).first())
         if patient_data.save():

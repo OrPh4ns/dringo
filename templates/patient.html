@@ -35,8 +35,8 @@
                         </tr>
 
                         <tr>
-                            <th scope="row" class="col-5">Schmerzen</th>
-                            <td class="col-5">{% if patient.pain %}
+                            <th scope="row" class="col-5">Angina</th>
+                            <td class="col-5">{% if patient.exercise_angina %}
                                 Ja
                             {% else %}
                                 Nein
@@ -46,37 +46,68 @@
                         </tr>
 
                         <tr>
-                            <th scope="row" class="col-5">Verletzung</th>
+                            <th scope="row" class="col-5">Herzkrankheit</th>
+                            <td class="col-5">{% if patient.heart_disease %}
+                                Ja
+                            {% else %}
+                                Nein
+                            {% endif %}
+                            </td>
 
-                            <td class="col-5">{% if patient.injury %}Ja{% else %}Nein
-                            {% endif %}</td>
                         </tr>
 
                         <tr>
-                            <th scope="row" class="col-5">Systole</th>
-                            <td class="col-5">{{ patient.systole }} Einheit</td>
+                            <th scope="row" class="col-5">Hochblutdruck</th>
+                            <td class="col-5">{% if patient.hypertension %}
+                                Ja
+                            {% else %}
+                                Nein
+                            {% endif %}
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+                            <th scope="row" class="col-5">Brustschmerzengrad</th>
+                            <td class="col-5">{{ patient.chest_pain_type }} Einheit</td>
                         </tr>
 
                         <tr>
-                            <th scope="row" class="col-5">Dyastole</th>
-                            <td class="col-5">{{ patient.diastole }} Einheit</td>
+                            <th scope="row" class="col-5">Blutdruck</th>
+                            <td class="col-5">{{ patient.blood_pressure }} Einheit</td>
                         </tr>
-
-                        <tr>
-                            <th scope="row" class="col-5">Atemfreq</th>
-                            <td class="col-5">{{ patient.breathing_rate }} Einheit</td>
-                        </tr>
-
 
                         <tr>
                             <th scope="row" class="col-5">Herzfrequfenz</th>
-                            <td class="col-5">{{ patient.heart_raet }} Einheit</td>
+                            <td class="col-5">{{ patient.max_heart_rate }} Einheit</td>
                         </tr>
 
 
                         <tr>
-                            <th scope="row" class="col-5">Körper Temp</th>
-                            <td class="col-5">{{ patient.body_temp }} Einheit</td>
+                            <th scope="row" class="col-5">Plasmaglukose</th>
+                            <td class="col-5">{{ patient.plasme_glucose }} Einheit</td>
+                        </tr>
+
+
+                        <tr>
+                            <th scope="row" class="col-5">Insulin</th>
+                            <td class="col-5">{{ patient.insulin }} Einheit</td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row" class="col-5">BMI</th>
+                            <td class="col-5">{{ patient.bmi }} Einheit</td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row" class="col-5">Diabetes Stammbaum</th>
+                            <td class="col-5">{{ patient.diabetes_pedigree }} Einheit</td>
+                        </tr>
+
+                        <tr>
+                            <th scope="row" class="col-5">Cholesterin</th>
+                            <td class="col-5">{{ patient.cholesterol }} Einheit</td>
                         </tr>
 
                         <tr>
