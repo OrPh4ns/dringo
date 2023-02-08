@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 
-import patient
 from hospital.models import Hospital
 from patient.models import Patient
 from role.models import Role
@@ -38,6 +37,9 @@ def reserv_patient(request, id):
 
 def get_patients(request):
     if request.user.is_authenticated:
+        patient_count = int(Patient.objects.filter(process_done=0).count())
+        if patient_count == 0:
+            return redirect('/neuer_patient')
         if Role.objects.filter(employee=request.user.id).first().is_car:
             patients = Patient.objects.filter(process_done=False).values()
             df = pd.DataFrame.from_dict(patients)
@@ -53,6 +55,7 @@ def get_patients(request):
         df['Stufe'] = triage
         df = df.sort_values(by=['Stufe'], ascending=[False])
         liste = df.values.tolist()
+        print(df2)
         return render(request, 'patients.html', {"patients": liste})
     else:
         return redirect('/einloggen')
@@ -104,7 +107,7 @@ def new_patient(request):
         blood_pressure = request.POST['blood_pressure']
         max_heart_rate = request.POST['max_heart_rate']
         plasma_glucose = request.POST['plasma_glucose']
-        insulin = request.POST['insulin']
+        insulin = 0
         bmi = request.POST['bmi']
         diabetes_pedigree = request.POST['diabetes_pedigree']
         cholesterol = request.POST['cholesterol']
